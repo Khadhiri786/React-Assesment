@@ -4,14 +4,12 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import { Link} from "@mui/material";
-import { useNavigation } from "react-router-dom";
 
 
 
 
 const HeaderComponent:React.FC =()=>{
 
-  const navigate=useNavigation();
       
 
     return(<> <Box sx={{ flexGrow: 1 }}>

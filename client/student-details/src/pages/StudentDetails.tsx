@@ -8,12 +8,15 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import TableComponent from "../components/Table";
 import AddStudent from "../components/AddStudent";
+import EditStudent from "../components/EditStudent";
 
 const StudentDetails: React.FC = () => {
   const [studentDetails, setStudentDetails] = useState([] as any);
   const [departmentDetails, setDepartmentDetails] = useState([] as any);
+  const [particularStudentDetails,setParticularStudentDetails]=useState([] as any);
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
-  const {deleteParticularStudent,addStudentDetails} = useApiRequest();
+  const [isOpenEditModal,setIsOpenEditModal]=useState<boolean>(false);
+  const {deleteParticularStudent,addStudentDetails,updateSelectedStudentDetails} = useApiRequest();
   const [isOpenError,setIsOpenError]=useState<{type:string,message:string,isOpen:boolean}>({type:"success",message:"",isOpen:false})
 
   useEffect(() => {
@@ -45,6 +48,8 @@ const StudentDetails: React.FC = () => {
 
   const handleEdit = (event: any, cellValues: any) => {
     console.log(event, cellValues);
+    setIsOpenEditModal(true);
+    setParticularStudentDetails(cellValues?.row);
   };
   const handleDelete = (event: any, cellValues: any) => {
     console.log(event, cellValues);
@@ -108,6 +113,14 @@ const StudentDetails: React.FC = () => {
 
     addStudentDetails(studentDetails?.studentname,studentDetails?.course,studentDetails.specialization,studentDetails?.percentage,studentDetails?.departmentid);
   }
+
+  const editStudent = (studentDetails:{studentname:string,
+    course: string,
+    departmentid: string,
+    specialization:string,
+    percentage: number})=>{
+        updateSelectedStudentDetails(studentDetails.studentname,studentDetails.course,studentDetails.specialization,studentDetails.percentage,studentDetails.departmentid);
+    }
   return (
     <>
       <HeaderComponent />
@@ -122,6 +135,8 @@ const StudentDetails: React.FC = () => {
           departmentDetails={departmentDetails}
 
         />
+        <EditStudent isOpen={isOpenEditModal} closeModal={(event: boolean)=>{setIsOpenEditModal(event)}} particularStudentDetails={particularStudentDetails} onSubmit={(e: any)=>editStudent(e)}           departmentDetails={departmentDetails}
+/>
         <div style={{ display: "flow-root" }}>
           <Button
             onClick={() => {

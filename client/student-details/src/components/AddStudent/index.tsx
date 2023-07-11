@@ -77,6 +77,7 @@ const AddStudent: React.FC<StudentDetailsProps> = (
         message: "Specialization is required",
       });
     }
+    
     if (
       studentDetails?.percentage === 0 ||
       studentDetails?.percentage === null

@@ -48,6 +48,18 @@ export function useApiRequest() {
     }
   };
 
+  const updateSelectedStudentDetails = async (studentname:string,course:string,specialization:string,percentage:number,departmentid:string)=>{
+    try {
+        const url=`http://localhost:5000/updateStudentDetail`;
+        axios.put(url,{data:{studentname:studentname,course:course,specialization:specialization,percentage:percentage,departmentid:departmentid}}).then((response)=>{
+            return response;
+        })
+    }
+    catch(err){
+        return err;
+    }
+  }
+
   const addDepartmentDetails = async (
    departmentname: string
   ) => {
@@ -76,6 +88,7 @@ export function useApiRequest() {
 
   return {
     deleteParticularDepartment,
+    updateSelectedStudentDetails,
     updateSelectedDepartment,
     addDepartmentDetails,
     deleteParticularStudent,

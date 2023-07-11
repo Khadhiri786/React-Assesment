@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { DataGrid, GridColDef } from "@mui/x-data-grid";
+import {  GridColDef } from "@mui/x-data-grid";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Box from "@mui/material/Box";
@@ -11,7 +11,6 @@ import AddDepartment from "../components/AddDepartment";
 import HeaderComponent from "../components/Header";
 import TableComponent from "../components/Table";
 import EditDepartment from "../components/EditDepartment";
-import { string } from "yup";
 
 const DepartmentDetails: React.FC = () => {
   const [departmentDetails, setDepartmentDetails] = useState([] as any);
@@ -26,23 +25,19 @@ const DepartmentDetails: React.FC = () => {
     axios
       .get("http://localhost:5000/getAllDepartmentDetails")
       .then((response) => {
-        console.log(response?.data);
         const rows = response?.data?.map((i: any) => ({
           id: i?.departmentid,
           departmentName: i?.departmentname,
         }));
-        console.log(rows);
         setDepartmentDetails(rows);
       });
   }, []);
 
   const handleEdit = (event: any, cellValues: any) => {
-    console.log(event, cellValues);
     const selectedValue: {
         id: string;
         departmentName: string;
     }[]=[{id:cellValues?.row?.id,departmentName:cellValues?.row?.departmentName}];
-    console.log(selectedValue);
     setSelectedDepartment(selectedValue);
     setIsOpenEditDepartmentModal(true);
   };
@@ -51,7 +46,6 @@ const DepartmentDetails: React.FC = () => {
     axios
       .get("http://localhost:5000/getAllDepartmentDetails")
       .then((response) => {
-        console.log(response?.data);
         const rows = response?.data?.map((i: any) => ({
           id: i?.departmentid,
           departmentName: i?.departmentname,
@@ -102,12 +96,10 @@ const DepartmentDetails: React.FC = () => {
     axios
     .get("http://localhost:5000/getAllDepartmentDetails")
     .then((response) => {
-      console.log(response?.data);
       const rows = response?.data?.map((i: any) => ({
         id: i?.departmentid,
         departmentName: i?.departmentname,
       }));
-      console.log(rows);
       setDepartmentDetails(rows);
     });
 
